@@ -73,7 +73,32 @@ if __name__ == '__main__':
 
 
 ### Код:
+```python
+def cache_results(func):
+    cache = {}
+
+    def wrapper(*args):
+        if args in cache:
+            print("Результат з кешу: ", args)
+            return cache[args]
+        print("Обчислюємо результат для: ", args)
+        result = func(*args)
+        cache[args] = result
+        return result
+
+    return wrapper
+
+@cache_results
+def multiply(a, b):
+    return a * b
+
+print(multiply(2, 3))
+print(multiply(2, 3))
+print(multiply(4, 5))
+print(multiply(4, 5))
+```
 ### Консоль:
+![img_1.png](img_1.png)
 ## Завдання 4.
 Напишіть функцію get_list яка приймає обʼєкт рядка. Сама функція повинна повертати список з цілих чисел, які надходить на її вхід у вигляді рядка з цілих чисел, записаних через пробіл. Приклад такого рядка:
 
@@ -82,11 +107,60 @@ if __name__ == '__main__':
 Додайте рядок документації для функції get_list.  Визначте декоратор sum_list, який виконує підсумовування значень зі списку цієї функції та повертає результат.
 Усередині декоратора декоруйте передану функцію get_list за допомогою команди @wraps (не забудьте зробити імпорт: from functools import wraps). Таке декорування необхідне, щоб вихідна функція get_list зберігала свої локальні властивості: __name__ і __doc__.
 ### Код:
+```python
+from functools import wraps
+
+def sum_list(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        numbers = func(*args, **kwargs)
+        return sum(numbers)
+    return wrapper
+
+@sum_list
+def get_list(s):
+    result = []
+    for i in s.split():
+        result.append(int(i))
+    return result
+
+if __name__ == "__main__":
+    print(get_list("10 20 30 40"))
+```
 ### Консоль:
+![img_2.png](img_2.png)
 ## Завдання 5. 
 Реалізуйте два декоратори: uppercase(перетворює результат функції на верхній регістр) та exclaim(додає три знаки оклику (!!!) до результату функції).
 Застосуйте ці декоратори до двох різних функцій одночасно. Можете придумати власні функції, які повертатимуть рядок. Якщо ж ідей немає, скористайтеся наведеними прикладами: 
 greet(name) – повертає рядок "Привіт, {name}".
 farewell(name) – повертає рядок "До побачення, {name}".
 ### Код:
+```python
+def uppercase(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        return result.upper()
+    return wrapper
+
+def exclaim(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        return result + "!!!"
+    return wrapper
+
+@exclaim
+@uppercase
+def greet(name):
+    return f"Привіт, {name}"
+
+@uppercase
+@exclaim
+def farewell(name):
+    return f"До побачення, {name}"
+
+if __name__ == "__main__":
+    print(greet("Ярослав"))   
+    print(farewell("Ярослав"))
+```
 ### Консоль:
+![img_3.png](img_3.png)
