@@ -77,4 +77,4 @@ store.remove_application(app_youtube)
 Як зберігати список додатків в об'єктах класу AppStore вирішите самі.
 
 # Код: [p3.py](p3.py)
-# Консоль:![img_2.png](img_2.png)
+# Консоль:![img_3.png](img_3.png)

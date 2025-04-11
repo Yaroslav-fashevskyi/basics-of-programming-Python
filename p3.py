@@ -18,7 +18,7 @@ class AppStore:
 
     def block_application(self, app):
         if app in self.apps:
-            app.blocked = False
+            app.blocked = True
 
     def total_apps(self):
         return len(self.apps)
@@ -27,16 +27,39 @@ class AppStore:
 if __name__ == "__main__":
     store = AppStore()
 
+    app1 = Application("YouTube")
+    app2 = Application("TikTok")
+    app3 = Application("Instagram")
+    app4 = Application("Telegram")
+    app5 = Application("Facebook")
 
-    app_youtube = Application("Youtube")
+    store.add_application(app1)
+    store.add_application(app2)
+    store.add_application(app3)
+    store.add_application(app4)
+    store.add_application(app5)
 
-    store.add_application(app_youtube)
 
+    print("Кількість додатків:", store.total_apps())
+
+    store.block_application(app2)
+    store.block_application(app5)
+
+    print("""
+    status:
+    """)
+    for app in [app1, app2, app3, app4, app5]:
+        print(f"{app.name}: заблоковано -> {app.blocked}")
+
+
+    store.remove_application(app3)
+    store.remove_application(app4)
+
+    print("Після видалення Instagram і Telegram:")
     print("Кількість додатків у магазині:", store.total_apps())
 
-    store.block_application(app_youtube)
-    print(f"Чи заблокований '{app_youtube.name}'?", app_youtube.blocked)
-
-    store.remove_application(app_youtube)
-    print("Кількість додатків після видалення:", store.total_apps())
-
+    print("""
+    end status:
+    """)
+    for app in store.apps:
+        print(f"{app.name}: заблоковано -> {app.blocked}")
