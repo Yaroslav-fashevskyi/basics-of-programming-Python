@@ -5,21 +5,19 @@ class User:
         self.__age = age
         self.__accounts = []  # Список банківських рахунків користувача
 
-    # Метод для додавання нового банківського рахунку
-    def add_account(self, account) -> None:
+    def add_account(self, account):
         self.__accounts.append(account)
 
-    # Гетери для отримання даних користувача
-    def get_name(self) -> str:
+    def get_name(self):
         return self.__name
 
-    def get_surname(self) -> str:
+    def get_surname(self):
         return self.__surname
 
-    def get_age(self) -> int:
+    def get_age(self):
         return self.__age
 
-    def get_accounts(self) -> list:
+    def get_accounts(self):
         return self.__accounts
 
 
@@ -28,12 +26,12 @@ class BankAccount:
 
     def __init__(self, owner: User, initial_balance: float):
         self.__account_number = BankAccount.__account_counter
-        BankAccount.__account_counter += 1  # Автоматичне збільшення номера рахунку
+        BankAccount.__account_counter += 1
         self.__balance = initial_balance
         self.__owner = owner
 
     # Метод для поповнення рахунку
-    def deposit(self, amount: float) -> None:
+    def deposit(self, amount: float):
         if amount > 0:
             self.__balance += amount
             print(f"Поповнено рахунок №{self.__account_number} на суму {amount}. Новий баланс: {self.__balance}")
@@ -41,7 +39,7 @@ class BankAccount:
             print("Сума поповнення повинна бути додатною.")
 
     # Метод для зняття коштів
-    def withdraw(self, amount: float) -> None:
+    def withdraw(self, amount: float):
         if amount > self.__balance:
             print("Недостатньо коштів для зняття!")
         elif amount <= 0:
@@ -50,27 +48,24 @@ class BankAccount:
             self.__balance -= amount
             print(f"Знято {amount} з рахунку №{self.__account_number}. Новий баланс: {self.__balance}")
 
-    # Гетер для отримання балансу
-    def get_balance(self) -> float:
+
+    def get_balance(self):
         return self.__balance
 
-    # Гетер для отримання номера рахунку
-    def get_account_number(self) -> int:
+    def get_account_number(self):
         return self.__account_number
 
-    # Гетер для отримання власника рахунку
     def get_owner(self) -> User:
         return self.__owner
 
 
 class BankSystem:
-    # Створення нового користувача
-    def create_user(self, name: str, surname: str, age: int) -> User:
+    @staticmethod
+    def create_user( name: str, surname: str, age: int) -> User:
         user = User(name, surname, age)
         print(f"Створено користувача: {name} {surname}, вік: {age}")
         return user
 
-    # Створення нового банківського рахунку для користувача
     def create_account(self, user: User, initial_balance: float) -> BankAccount:
         account = BankAccount(user, initial_balance)
         user.add_account(account)
@@ -78,16 +73,14 @@ class BankSystem:
             f"Створено банківський рахунок №{account.get_account_number()} для користувача {user.get_name()} {user.get_surname()} з початковим балансом {initial_balance}")
         return account
 
-    # Поповнення рахунку
-    def deposit(self, account: BankAccount, amount: float) -> None:
+    def deposit(self, account: BankAccount, amount: float):
         account.deposit(amount)
 
     # Зняття коштів з рахунку
-    def withdraw(self, account: BankAccount, amount: float) -> None:
+    def withdraw(self, account: BankAccount, amount: float):
         account.withdraw(amount)
 
-    # Переказ коштів між рахунками
-    def transfer(self, sender_account: BankAccount, receiver_account: BankAccount, amount: float) -> None:
+    def transfer(self, sender_account: BankAccount, receiver_account: BankAccount, amount: float):
         if amount <= 0:
             print("Сума переказу повинна бути додатною.")
             return

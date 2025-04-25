@@ -8,31 +8,31 @@ class Car:
         self.__color = color
         self.__driver = None  # Спочатку водія немає
 
-    def set_driver(self, driver) -> None:
+    def set_driver(self, driver):
         self.__driver = driver
 
     def get_driver(self):
         return self.__driver
 
-    def get_speed(self) -> float:
+    def get_speed(self):
         return self.__speed
 
-    def get_power(self) -> float:
+    def get_power(self):
         return self.__power
 
-    def get_brand(self) -> str:
+    def get_brand(self):
         return self.__brand
 
-    def get_model(self) -> str:
+    def get_model(self):
         return self.__model
 
-    def get_year(self) -> int:
+    def get_year(self):
         return self.__year
 
-    def get_color(self) -> str:
+    def get_color(self):
         return self.__color
 
-    def info(self) -> str:
+    def info(self):
         return f"{self.__brand} {self.__model} ({self.__year}, {self.__color})"
 
 
@@ -42,13 +42,13 @@ class Driver:
         self.__age = age
         self.__driving_experience = driving_experience
 
-    def get_name(self) -> str:
+    def get_name(self):
         return self.__name
 
-    def get_age(self) -> int:
+    def get_age(self):
         return self.__age
 
-    def get_driving_experience(self) -> int:
+    def get_driving_experience(self):
         return self.__driving_experience
 
 
@@ -74,7 +74,7 @@ class Race:
             return None  # Нічия
 
     # Метод для виведення інформації про переможця
-    def print_winner(self, winner) -> None:
+    def print_winner(self, winner):
         if winner is None:
             print("Гонка завершилась нічиєю!")
         else:
