@@ -53,9 +53,10 @@ class Driver:
 
 
 class Race:
-    # Метод, що проводить гонку між двома автомобілями та повертає переможця (як кортеж: (car, driver))
-    def start_race(self, car1: Car, car2: Car):
-        # Отримуємо досвід водія, якщо водій встановлений; інакше приймаємо його рівним 0
+    # Метод який запускає гонку між двома автомобілями та повертає переможця
+    @staticmethod
+    def start_race(car1: Car, car2: Car):
+        # Отримуємо досвід водія, якщо водій встановлений інакше приймаємо його рівним 0
         driver1 = car1.get_driver()
         exp1 = driver1.get_driving_experience() if driver1 is not None else 0
         score1 = 0.5 * car1.get_speed() + 0.3 * car1.get_power() + 0.2 * exp1
@@ -74,7 +75,8 @@ class Race:
             return None  # Нічия
 
     # Метод для виведення інформації про переможця
-    def print_winner(self, winner):
+    @staticmethod
+    def print_winner(winner):
         if winner is None:
             print("Гонка завершилась нічиєю!")
         else:
